@@ -1,9 +1,11 @@
 import React from 'react';
 
-const ColorRecognition = () => {
+const ColorRecognition = ({imageUrl}) => {
     return(
-        <div>
-            
+        <div className='center ma'>
+            <div className='absolute mt2'>
+                <img src={imageUrl} alt='' width='500px'/>
+            </div>
         </div>
     )
 }
