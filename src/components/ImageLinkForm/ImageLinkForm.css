@@ -17,3 +17,16 @@
     );
 }
 
+.icon-button{
+    display: none;
+}
+
+.upload-button{
+    border-radius: 3px;
+    box-shadow: 0 0 1px 1px rgba(27, 38, 52, 0.12);
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.7px;
+    cursor: pointer;
+}

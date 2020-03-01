@@ -12,7 +12,8 @@
     "react-particles-js": "^2.7.1",
     "react-scripts": "3.4.0",
     "react-tilt": "^0.1.4",
-    "tachyons": "^4.11.1"
+    "tachyons": "^4.11.1",
+    "textcolor": "^1.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
