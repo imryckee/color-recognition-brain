@@ -1,8 +1,8 @@
 import React from 'react';
 import ColorBlock from './ColorBlock.js';
 
-const ColorRecognition = ({link,colors,status}) => {
-    if(status===0){
+const ColorRecognition = ({link,colors,linkstatus}) => {
+    if(linkstatus==='true'){
         const colorBlockList = colors.map(colorinfo => {
             return <ColorBlock hex={colorinfo.hex} name={colorinfo.name} percent={colorinfo.percent} key={colorinfo.hex}/>
         })
@@ -18,9 +18,9 @@ const ColorRecognition = ({link,colors,status}) => {
                 </section>
             </div>
         )
-    }else if(status===1){
+    }else if(linkstatus==='invalidUrl'){
         return <p className='red f3'>Please enter a valid image url.</p>
-    }else if(status===2){
+    }else if(linkstatus==='invalidFile'){
         return <p className='red f3'>Please choose an image file.</p>
     }else{
         return null;

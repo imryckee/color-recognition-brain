@@ -7,12 +7,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /* background: linear-gradient(89deg,#FF5EDF 0%,#04C8DE 100%); */
   background-color: #373d68;
-  
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }
 
 button{

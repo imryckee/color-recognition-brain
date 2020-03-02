@@ -1,9 +1,14 @@
 import React from 'react';
 import './App.css';
+
 import Particles from 'react-particles-js';
 import particlesOption from '../components/particlesOption.js'
+
 import Clarifai from 'clarifai'
+
 import Navigation from '../components/Navigation.js'
+import Signin from '../components/Signin.js'
+import Register from '../components/Register.js'
 import Logo from '../components/Logo/Logo.js'
 import Rank from '../components/Rank.js'
 import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm.js'
@@ -18,11 +23,25 @@ class App extends React.Component {
         this.state = {
             input:"",
             link:'', 
-            status:-1,//beginning:-1,ok:0,invalid url:1,invalid file:2
             colors:[{hex:'',name:'',percent:''}],
+            linkstatus:'',//'true','invalidUrl','invalidFile'
+            route:'home',//'home','signin','register'
+            isSignedIn:false,//true
         } 
     }
 
+    onRouteChange = (route) => {
+        this.setState({route:route})
+    }
+
+    onSigninStatusChange = (isSignedIn) =>{
+        this.setState({isSignedIn:isSignedIn})
+    }
+
+    onInputChange = (event) =>{
+        this.setState({input:event.target.value})
+    }
+    
     abstractColorInfo = (response) => {
         const colors = response.outputs[0].data.colors.map(colorinfo =>{
             return {hex:colorinfo.raw_hex,name:colorinfo.w3c.name,percent:Number(colorinfo.value*100).toFixed(1)+"%"}
@@ -33,17 +52,13 @@ class App extends React.Component {
         return colors;
     }
 
-    onInputChange = (event) =>{
-        this.setState({input:event.target.value})
-    }
-    
     onButtonSubmit = () =>{
         app.models
             .predict("eeed0b6733a644cea07cf4c60f87ebb7", this.state.input)
             .then(response => this.setState({colors:this.abstractColorInfo(response)}))
             .then(()=> this.setState({link: this.state.input}))
-            .then(() => this.setState({status:0}))
-            .catch(() => this.setState({status:1}))
+            .then(() => this.setState({linkstatus:'true'}))
+            .catch(() => this.setState({linkstatus:'invalidUrl'}))
     }
 
     onUpload = (event) => {
@@ -54,8 +69,8 @@ class App extends React.Component {
                 .predict("eeed0b6733a644cea07cf4c60f87ebb7", e.target.result.split('base64,')[1])
                 .then(response => this.setState({colors:this.abstractColorInfo(response)}))
                 .then(()=> this.setState({link: e.target.result}))
-                .then(() => this.setState({status:0}))
-                .catch(() => this.setState({status:2}));
+                .then(() => this.setState({linkstatus:'true'}))
+                .catch(() => this.setState({linkstatus:'invalidFile'}));
         }
         reader.readAsDataURL(file);
     }
@@ -64,13 +79,26 @@ class App extends React.Component {
         return (
             <div className="App">
                 <Particles className='particles' params={particlesOption} />
-                <Navigation />
-                <Logo />
-                <Rank />
-                <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} onUpload={this.onUpload}/>
-                <ColorRecognition link={this.state.link} status={this.state.status} colors={this.state.colors}/>
+                <Navigation onRouteChange={this.onRouteChange} onSigninStatusChange={this.onSigninStatusChange} isSignedIn={this.state.isSignedIn}/>
+                {this.state.route==='home'
+                    ?<div>
+                        <Logo />
+                        <Rank />
+                        <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} onUpload={this.onUpload}/>
+                        <ColorRecognition link={this.state.link} linkstatus={this.state.linkstatus} colors={this.state.colors}/>
+                    </div>
+                    :(
+                        this.state.route ==="signin"
+                        ?<Signin onRouteChange={this.onRouteChange} onSigninStatusChange={this.onSigninStatusChange}/> 
+                        :(
+                            this.state.route === 'register'
+                            ?<Register onRouteChange={this.onRouteChange} onSigninStatusChange={this.onSigninStatusChange}/> 
+                            :<div></div>
+                        )
+                    )
+                }
             </div>
-        );
+        )
     }
 }
 

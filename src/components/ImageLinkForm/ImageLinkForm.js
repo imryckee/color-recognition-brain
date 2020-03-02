@@ -7,8 +7,8 @@ const ImageLinkForm = ({onInputChange,onButtonSubmit,onUpload}) => {
             <p className='f3 white pa3'>
                 {"This Magic Brain will detect colors in your pictures. Give it a try !"}
             </p>
-            <p className='f5 white pa3'>
-                {"Enter a valid image url or browse image files in your computer."}
+            <p className='f4 white pa3'>
+                {"Enter a valid image url or upload an image file from your computer."}
             </p>
             <div className="pa2 center">
                 <div className='center form pa4 br3 shadow-5'>
@@ -17,7 +17,7 @@ const ImageLinkForm = ({onInputChange,onButtonSubmit,onUpload}) => {
                 </div>
             </div>
             <div>
-                <label className='w-20 center upload-button pa2 bg-silver' htmlFor='image-button'>Browse File</label>
+                <label className='w-20 center upload-button pa2 bg-silver mt3 mb4' htmlFor='image-button'>Upload Image</label>
                 <input className='icon-button' type='file' accept="image/*" id='image-button' onChange={onUpload}/>
             </div>
         </div>
