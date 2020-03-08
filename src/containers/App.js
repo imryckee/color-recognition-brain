@@ -14,7 +14,6 @@ import Rank from '../components/Rank.js'
 import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm.js'
 import ColorRecognition from '../components/ColorRecognition/ColorRecognition.js'
 
-
 const app = new Clarifai.App({apiKey: '7a4d95ae63234c00b04756627ab81528'});
 
 class App extends React.Component {
@@ -27,6 +26,13 @@ class App extends React.Component {
             linkstatus:'',//'true','invalidUrl','invalidFile'
             route:'home',//'home','signin','register'
             isSignedIn:false,//true
+            user:{
+                id:'',
+                name:'',
+                email:'',
+                entries:0,
+                joined:''
+            }
         } 
     }
 
@@ -36,6 +42,44 @@ class App extends React.Component {
 
     onSigninStatusChange = (isSignedIn) =>{
         this.setState({isSignedIn:isSignedIn})
+    }
+
+    loadUser = (data) => {
+        this.setState({
+            user:{
+                id:data.id,
+                name:data.name,
+                email:data.email,
+                entries:data.entries,
+                joined:data.joined
+            }
+        })
+    }
+
+    updateEntries = () => {
+        if(this.state.isSignedIn){
+            fetch("http://localhost:3001/image",{
+                method:'put',
+                headers:{'Content-type':'application/json'},
+                body:JSON.stringify({
+                    id:this.state.user.id
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data==='no such user'){
+                    //
+                }else{
+                    this.setState({
+                        user:{
+                            ...this.state.user,
+                            entries:data
+                        }
+                    })
+                    // this.setState(Object.assign(this.state.user,{entries:data}))
+                }
+            })
+        }
     }
 
     onInputChange = (event) =>{
@@ -52,17 +96,23 @@ class App extends React.Component {
         return colors;
     }
 
-    onButtonSubmit = () =>{
+    onSubmitDetect = (event) =>{
+        event.target.parentNode.firstChild.value='';
         app.models
             .predict("eeed0b6733a644cea07cf4c60f87ebb7", this.state.input)
             .then(response => this.setState({colors:this.abstractColorInfo(response)}))
-            .then(()=> this.setState({link: this.state.input}))
+            .then(this.setState(
+                ()=>({link:this.state.input})
+            ))
             .then(() => this.setState({linkstatus:'true'}))
+            .then(this.setState(
+                ()=>({input:''})
+            ))
+            .then(()=>{this.updateEntries()})
             .catch(() => this.setState({linkstatus:'invalidUrl'}))
     }
 
     onUpload = (event) => {
-        const file = event.target.files[0];
         const reader = new FileReader();
         reader.onload = (e) =>{
             app.models
@@ -70,9 +120,13 @@ class App extends React.Component {
                 .then(response => this.setState({colors:this.abstractColorInfo(response)}))
                 .then(()=> this.setState({link: e.target.result}))
                 .then(() => this.setState({linkstatus:'true'}))
+                .then(()=>{this.updateEntries()})
                 .catch(() => this.setState({linkstatus:'invalidFile'}));
         }
-        reader.readAsDataURL(file);
+        const file = event.target.files[0];
+        if(file){
+            reader.readAsDataURL(file);
+        }
     }
 
     render(){
@@ -83,13 +137,13 @@ class App extends React.Component {
                 {this.state.route==='home'
                     ?<div>
                         <Logo />
-                        <Rank />
-                        <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} onUpload={this.onUpload}/>
+                        <Rank isSignedIn={this.state.isSignedIn} name={this.state.user.name} entries={this.state.user.entries}/>
+                        <ImageLinkForm onInputChange={this.onInputChange} onSubmitDetect={this.onSubmitDetect} onUpload={this.onUpload}/>
                         <ColorRecognition link={this.state.link} linkstatus={this.state.linkstatus} colors={this.state.colors}/>
                     </div>
                     :(
                         this.state.route ==="signin"
-                        ?<Signin onRouteChange={this.onRouteChange} onSigninStatusChange={this.onSigninStatusChange}/> 
+                        ?<Signin onRouteChange={this.onRouteChange} onSigninStatusChange={this.onSigninStatusChange} loadUser={this.loadUser}/> 
                         :(
                             this.state.route === 'register'
                             ?<Register onRouteChange={this.onRouteChange} onSigninStatusChange={this.onSigninStatusChange}/> 

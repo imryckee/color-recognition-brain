@@ -1,17 +1,17 @@
 import React from 'react';
 
-const Rank = () => {
-    return(
-        <div>
-            <div className='white f3 pa3'>
-                {'Eva, your current rank is'}
+const Rank = ({isSignedIn,name,entries}) => {
+    if(isSignedIn===true){
+        return(
+            <div>
+                <div className='white f4 pa2'>
+                    {`${name}, your have detected ${entries} times for now.`}
+                </div>
             </div>
-            <div className='white f2'>
-                {'#1'}
-            </div>
-            
-        </div>
-    )
+        )
+    }else{
+        return null
+    }
 }
 
 export default Rank
