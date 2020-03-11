@@ -32,6 +32,8 @@ class Signin extends React.Component {
                 //display: the password wrong
             }else if(data==='no such user'){
                 //display: no such user
+            }else if(data==="can not load user profile" || data==='unable signin'){
+                //display: something is wrong
             }else{
                 this.props.onSigninStatusChange(true);
                 this.props.loadUser(data);

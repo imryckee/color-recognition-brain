@@ -27,11 +27,9 @@ class App extends React.Component {
             route:'home',//'home','signin','register'
             isSignedIn:false,//true
             user:{
-                id:'',
+                id:-1,
                 name:'',
-                email:'',
-                entries:0,
-                joined:''
+                entries:0
             }
         } 
     }
@@ -49,9 +47,7 @@ class App extends React.Component {
             user:{
                 id:data.id,
                 name:data.name,
-                email:data.email,
-                entries:data.entries,
-                joined:data.joined
+                entries:parseInt(data.entries)
             }
         })
     }
@@ -67,8 +63,8 @@ class App extends React.Component {
             })
             .then(response => response.json())
             .then(data => {
-                if(data==='no such user'){
-                    //
+                if(data==='no such user' || data==='update entries failed'){
+                    //state.user.id wrong
                 }else{
                     this.setState({
                         user:{
