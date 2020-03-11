@@ -37,6 +37,7 @@ class Signin extends React.Component {
             }else{
                 this.props.onSigninStatusChange(true);
                 this.props.loadUser(data);
+                this.props.changeToInitialStatus();
                 this.props.onRouteChange('home');
             }
         })

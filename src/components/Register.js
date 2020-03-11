@@ -34,9 +34,8 @@ class Register extends React.Component{
         })
         .then(response => response.json())
         .then(user => {
-            if(user!=="unable to register, may be the email has existed"){
+            if(user!=="unable to register, may be the email has existed" && user!=="incorrect form submission"){
                 this.props.onRouteChange('signin');
-                this.props.onSigninStatusChange(false);
             }else{
                 //display:unable to register
             }

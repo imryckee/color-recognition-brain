@@ -24,6 +24,7 @@ class App extends React.Component {
             link:'', 
             colors:[{hex:'',name:'',percent:''}],
             linkstatus:'',//'true','invalidUrl','invalidFile'
+
             route:'home',//'home','signin','register'
             isSignedIn:false,//true
             user:{
@@ -32,6 +33,15 @@ class App extends React.Component {
                 entries:0
             }
         } 
+    }
+
+    changeToInitialStatus= () => {
+        this.setState({
+            input:"",
+            link:'',
+            colors:[{hex:'',name:'',percent:''}],
+            linkstatus:''
+        })
     }
 
     onRouteChange = (route) => {
@@ -77,10 +87,6 @@ class App extends React.Component {
             })
         }
     }
-
-    onInputChange = (event) =>{
-        this.setState({input:event.target.value})
-    }
     
     abstractColorInfo = (response) => {
         const colors = response.outputs[0].data.colors.map(colorinfo =>{
@@ -90,6 +96,10 @@ class App extends React.Component {
             return b.percent.substr(0,b.percent.length-1)-a.percent.substr(0,a.percent.length-1)
         })
         return colors;
+    }
+
+    onInputChange = (event) =>{
+        this.setState({input:event.target.value})
     }
 
     onSubmitDetect = (event) =>{
@@ -129,7 +139,12 @@ class App extends React.Component {
         return (
             <div className="App">
                 <Particles className='particles' params={particlesOption} />
-                <Navigation onRouteChange={this.onRouteChange} onSigninStatusChange={this.onSigninStatusChange} isSignedIn={this.state.isSignedIn}/>
+                <Navigation 
+                    onRouteChange={this.onRouteChange} 
+                    onSigninStatusChange={this.onSigninStatusChange} 
+                    isSignedIn={this.state.isSignedIn} 
+                    changeToInitialStatus={this.changeToInitialStatus}
+                />
                 {this.state.route==='home'
                     ?<div>
                         <Logo />
@@ -139,10 +154,15 @@ class App extends React.Component {
                     </div>
                     :(
                         this.state.route ==="signin"
-                        ?<Signin onRouteChange={this.onRouteChange} onSigninStatusChange={this.onSigninStatusChange} loadUser={this.loadUser}/> 
+                        ?<Signin 
+                            onRouteChange={this.onRouteChange} 
+                            onSigninStatusChange={this.onSigninStatusChange} 
+                            loadUser={this.loadUser}
+                            changeToInitialStatus={this.changeToInitialStatus}
+                        /> 
                         :(
                             this.state.route === 'register'
-                            ?<Register onRouteChange={this.onRouteChange} onSigninStatusChange={this.onSigninStatusChange}/> 
+                            ?<Register onRouteChange={this.onRouteChange}/> 
                             :<div></div>
                         )
                     )
