@@ -15,7 +15,7 @@ import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm.js'
 import ColorRecognition from '../components/ColorRecognition/ColorRecognition.js'
 
 const app = new Clarifai.App({apiKey: '7a4d95ae63234c00b04756627ab81528'});
-
+const server = "http://localhost:" + process.env.REACT_APP_serverPORT;
 class App extends React.Component {
     constructor(){
         super();
@@ -64,7 +64,7 @@ class App extends React.Component {
 
     updateEntries = () => {
         if(this.state.isSignedIn){
-            fetch("http://localhost:3001/image",{
+            fetch(server+"/image",{
                 method:'put',
                 headers:{'Content-type':'application/json'},
                 body:JSON.stringify({
@@ -159,10 +159,11 @@ class App extends React.Component {
                             onSigninStatusChange={this.onSigninStatusChange} 
                             loadUser={this.loadUser}
                             changeToInitialStatus={this.changeToInitialStatus}
+                            server={server}
                         /> 
                         :(
                             this.state.route === 'register'
-                            ?<Register onRouteChange={this.onRouteChange}/> 
+                            ?<Register onRouteChange={this.onRouteChange} server={server}/> 
                             :<div></div>
                         )
                     )
