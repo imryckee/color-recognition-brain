@@ -1,26 +1,26 @@
 {
   "files": {
     "main.css": "/color-recognition-brain/static/css/main.6142981b.chunk.css",
-    "main.js": "/color-recognition-brain/static/js/main.3903f66a.chunk.js",
-    "main.js.map": "/color-recognition-brain/static/js/main.3903f66a.chunk.js.map",
+    "main.js": "/color-recognition-brain/static/js/main.662668fb.chunk.js",
+    "main.js.map": "/color-recognition-brain/static/js/main.662668fb.chunk.js.map",
     "runtime-main.js": "/color-recognition-brain/static/js/runtime-main.64c1cd5d.js",
     "runtime-main.js.map": "/color-recognition-brain/static/js/runtime-main.64c1cd5d.js.map",
     "static/css/2.eb45ad44.chunk.css": "/color-recognition-brain/static/css/2.eb45ad44.chunk.css",
-    "static/js/2.a461aafa.chunk.js": "/color-recognition-brain/static/js/2.a461aafa.chunk.js",
-    "static/js/2.a461aafa.chunk.js.map": "/color-recognition-brain/static/js/2.a461aafa.chunk.js.map",
+    "static/js/2.f04d0b74.chunk.js": "/color-recognition-brain/static/js/2.f04d0b74.chunk.js",
+    "static/js/2.f04d0b74.chunk.js.map": "/color-recognition-brain/static/js/2.f04d0b74.chunk.js.map",
     "index.html": "/color-recognition-brain/index.html",
-    "precache-manifest.fc103f032e059bb9dec5220a2fb61218.js": "/color-recognition-brain/precache-manifest.fc103f032e059bb9dec5220a2fb61218.js",
+    "precache-manifest.e3e0edcf8a5b218e83078776906bcfd9.js": "/color-recognition-brain/precache-manifest.e3e0edcf8a5b218e83078776906bcfd9.js",
     "service-worker.js": "/color-recognition-brain/service-worker.js",
     "static/css/2.eb45ad44.chunk.css.map": "/color-recognition-brain/static/css/2.eb45ad44.chunk.css.map",
     "static/css/main.6142981b.chunk.css.map": "/color-recognition-brain/static/css/main.6142981b.chunk.css.map",
-    "static/js/2.a461aafa.chunk.js.LICENSE.txt": "/color-recognition-brain/static/js/2.a461aafa.chunk.js.LICENSE.txt",
+    "static/js/2.f04d0b74.chunk.js.LICENSE.txt": "/color-recognition-brain/static/js/2.f04d0b74.chunk.js.LICENSE.txt",
     "static/media/brain.png": "/color-recognition-brain/static/media/brain.8580a503.png"
   },
   "entrypoints": [
     "static/js/runtime-main.64c1cd5d.js",
     "static/css/2.eb45ad44.chunk.css",
-    "static/js/2.a461aafa.chunk.js",
+    "static/js/2.f04d0b74.chunk.js",
     "static/css/main.6142981b.chunk.css",
-    "static/js/main.3903f66a.chunk.js"
+    "static/js/main.662668fb.chunk.js"
   ]
 }
