@@ -14,7 +14,7 @@ const ImageLinkForm = ({onInputChange,onSubmitDetect,onUpload}) => {
                 </div>
             </div>
             <div>
-                <label className='w-20 center upload-button pa2 bg-light-silver mt3 mb4' htmlFor='image-button'>Upload Image</label>
+                <label className='w-20 center upload-button pa2 bg-light-silver mt4 mb4' htmlFor='image-button'>Upload Image</label>
                 <input className='icon-button' type='file' accept="image/*" id='image-button' onChange={onUpload}/>
             </div>
         </div>

@@ -1,13 +1,18 @@
 import React from 'react';
 
+const initialState = {
+    name:'',
+    email:"",
+    password:'',
+    submissionFormat:"",
+    emailExisted:"",
+    dbfailed:""
+}
+
 class Register extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            name:'',
-            email:"",
-            password:'',
-        } 
+        this.state = initialState;
     } 
  
     onNameChange = (event) => {
@@ -22,7 +27,11 @@ class Register extends React.Component{
         this.setState({password:event.target.value})
     }
 
-    onSubmitRegister = () => {
+    onSubmitRegister = (event) => {
+        event.target.parentNode.parentNode.firstChild.childNodes[1].lastChild.value="";
+        event.target.parentNode.parentNode.firstChild.childNodes[2].lastChild.value="";
+        event.target.parentNode.parentNode.firstChild.childNodes[3].lastChild.value="";
+
         fetch(this.props.server+"/register",{
             method:'post',
             headers:{'Content-type':'application/json'},
@@ -33,19 +42,38 @@ class Register extends React.Component{
             })
         })
         .then(response => response.json())
-        .then(user => {
-            if(user!=="unable to register, may be the email has existed" && user!=="incorrect form submission"){
-                this.props.onRouteChange('signin');
+        .then(data => {
+            this.setState(
+                ()=>(initialState)
+            );
+            if(data==="incorrect form submission"){
+                this.setState(
+                    ()=>({submissionFormat:false})
+                );
+            }else if (data==="email has existed"){
+                this.setState(
+                    ()=>({emailExisted:true})
+                );
+            }else if (data==="there is something wrong with database"){
+                this.setState(
+                    ()=>({dbfailed:true})
+                );
             }else{
-                //display:unable to register
+                this.props.onRouteChange('signin');
             }
+        })
+        .catch(err => {
+            console.log("Can't connect to database.");
+            this.setState(
+                ()=>({dbfailed:true})
+            );
         })
     }
 
     render(){
         return(
-            <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw5 shadow-5 center">
-                <main className="pa4 black-80">
+            <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-30-l mw10 shadow-5 center">
+                <main className="pl5 pr5 pt4 pb3 black-80">
                     <div className="measure">
                         <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
                             <legend className="f3 fw6 ph0 mh0">Register</legend>
@@ -88,6 +116,27 @@ class Register extends React.Component{
                                 value="Register"
                             />
                         </div>
+                    </div>
+                    {this.state.emailExisted===true
+                        ?<p className="white">This email has existed.</p>
+                        :(this.state.submissionFormat===false
+                            ?<div className="white">
+                                <p>Incorrect form submission.</p>
+                                <p>Follow the following rules.</p>
+                            </div>
+                            :(this.state.dbfailed===false
+                                ?<div className="white">
+                                    <p>Can't connect to database.</p>
+                                    <p>Try it later.</p>
+                                </div>
+                                :<div></div>
+                            )
+                        )
+                    }
+                    <div>
+                        <p>Name shouldn't be empty.</p>
+                        <p>Email should be valid. </p>
+                        <p>Password should be greater than 6 digits.</p>
                     </div>
                 </main>
             </article>

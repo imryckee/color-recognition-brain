@@ -19,9 +19,15 @@ const ColorRecognition = ({link,colors,linkstatus}) => {
             </div>
         )
     }else if(linkstatus==='invalidUrl'){
-        return <p className='red f3'>This isn't a valid image url. Please enter again !</p>
+        return <div>
+                    <p className='light-red f3'>This isn't a valid image url. Please enter again.</p>
+                    <p className='gold f4'>Or you tried it too fast, slow down !</p>
+                </div>
     }else if(linkstatus==='invalidFile'){
-        return <p className='red f3'>This isn't an image file. Please upload again !</p>
+        return <div>
+                    <p className='light-red f3'>This isn't an image file. Please upload again.</p>
+                    <p className='gold f4'>Or you tried it too fast, slow down !</p>
+                </div>
     }else{
         return null;
     }

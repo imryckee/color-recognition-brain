@@ -1,12 +1,17 @@
 import React from 'react';
 
+const initialState = {
+    signInEmail:"",
+    signInPassword:'',
+    passwordWrong:"",
+    noSuchUser:"",
+    dbfailed:"",
+} 
+
 class Signin extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            signInEmail:"",
-            signInPassword:'',
-        } 
+        this.state = initialState;
     }
 
     onEmailChange = (event) => {
@@ -17,7 +22,10 @@ class Signin extends React.Component {
         this.setState({signInPassword:event.target.value})
     }
 
-    onSubmitSignIn = () => {
+    onSubmitSignIn = (event) => {
+        event.target.parentNode.parentNode.firstChild.childNodes[1].lastChild.value="";
+        event.target.parentNode.parentNode.firstChild.childNodes[2].lastChild.value="";
+
         fetch(this.props.server+"/signin",{
             method:'post',
             headers:{'Content-type':'application/json'},
@@ -28,12 +36,21 @@ class Signin extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
+            this.setState(
+                ()=>(initialState)
+            );
             if(data==='wrong password'){
-                //display: the password wrong
+                this.setState(
+                    ()=>({passwordWrong:true})
+                );
             }else if(data==='no such user'){
-                //display: no such user
-            }else if(data==="can not load user profile" || data==='unable signin'){
-                //display: something is wrong
+                this.setState(
+                    ()=>({noSuchUser:true})
+                );
+            }else if(data==='there is something wrong with database'){
+                this.setState(
+                    ()=>({dbfailed:true})
+                );
             }else{
                 this.props.onSigninStatusChange(true);
                 this.props.loadUser(data);
@@ -41,11 +58,17 @@ class Signin extends React.Component {
                 this.props.onRouteChange('home');
             }
         })
+        .catch(err => {
+            console.log("Can't connect to database.");
+            this.setState(
+                ()=>({dbfailed:true})
+            );
+        })
     }
 
     render(){
         return(
-            <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw5 shadow-5 center">
+            <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-30-l mw10 shadow-5 center">
                 <main className="pa4 black-80">
                     <div className="measure">
                         <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
@@ -80,6 +103,19 @@ class Signin extends React.Component {
                             />
                         </div>
                     </div>
+                    {this.state.passwordWrong===true
+                        ?<p className="white">Password is wrong.</p>
+                        :(this.state.noSuchUser===true
+                            ?<p className="white">No such user.</p>
+                            :(this.state.dbfailed===true
+                                ?<div className="white">
+                                    <p>Can't connect to database.</p>
+                                    <p>Try it later.</p>
+                                </div>
+                                :<div></div>
+                            )
+                        )
+                    }
                 </main>
             </article>
         )

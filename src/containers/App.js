@@ -16,6 +16,7 @@ import ColorRecognition from '../components/ColorRecognition/ColorRecognition.js
 
 const app = new Clarifai.App({apiKey: '7a4d95ae63234c00b04756627ab81528'});
 const server = "http://localhost:" + process.env.REACT_APP_serverPORT;
+
 class App extends React.Component {
     constructor(){
         super();
@@ -74,7 +75,7 @@ class App extends React.Component {
             .then(response => response.json())
             .then(data => {
                 if(data==='no such user' || data==='update entries failed'){
-                    //state.user.id wrong
+                    console.log("There is something wrong with the user info. Update entries failed.")
                 }else{
                     this.setState({
                         user:{
@@ -84,6 +85,10 @@ class App extends React.Component {
                     })
                     // this.setState(Object.assign(this.state.user,{entries:data}))
                 }
+            })
+            .catch(err => {
+                console.log("Update entries failed. May be there is something wrong with database.");
+                console.log(err);
             })
         }
     }
@@ -104,18 +109,29 @@ class App extends React.Component {
 
     onSubmitDetect = (event) =>{
         event.target.parentNode.firstChild.value='';
+        console.log("current:"+this.state.input);
         app.models
             .predict("eeed0b6733a644cea07cf4c60f87ebb7", this.state.input)
             .then(response => this.setState({colors:this.abstractColorInfo(response)}))
+            .then(()=>{
+                console.log("current input:"+this.state.input);
+                console.log("current link:"+this.state.link);
+            })
             .then(this.setState(
-                ()=>({link:this.state.input})
+                ()=>({
+                    input:'',
+                    link:this.state.input,
+                    linkstatus:'true',
+                    })
             ))
-            .then(() => this.setState({linkstatus:'true'}))
-            .then(this.setState(
-                ()=>({input:''})
-            ))
+            .then(()=>{
+                console.log("after input:"+this.state.input);
+                console.log("after link:"+this.state.link);
+            })
             .then(()=>{this.updateEntries()})
-            .catch(() => this.setState({linkstatus:'invalidUrl'}))
+            .catch(() => {
+                console.log("afterwards:"+this.state.input);
+                this.setState({linkstatus:'invalidUrl'});})
     }
 
     onUpload = (event) => {
@@ -124,8 +140,12 @@ class App extends React.Component {
             app.models
                 .predict("eeed0b6733a644cea07cf4c60f87ebb7", e.target.result.split('base64,')[1])
                 .then(response => this.setState({colors:this.abstractColorInfo(response)}))
-                .then(()=> this.setState({link: e.target.result}))
-                .then(() => this.setState({linkstatus:'true'}))
+                .then(this.setState(
+                    ()=>({
+                        link: e.target.result,
+                        linkstatus:'true',
+                    })
+                ))
                 .then(()=>{this.updateEntries()})
                 .catch(() => this.setState({linkstatus:'invalidFile'}));
         }
