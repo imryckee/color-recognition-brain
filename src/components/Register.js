@@ -124,7 +124,7 @@ class Register extends React.Component{
                                 <p>Incorrect form submission.</p>
                                 <p>Follow the following rules.</p>
                             </div>
-                            :(this.state.dbfailed===false
+                            :(this.state.dbfailed===true
                                 ?<div className="white">
                                     <p>Can't connect to database.</p>
                                     <p>Try it later.</p>
