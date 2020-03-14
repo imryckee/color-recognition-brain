@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/color-recognition-brain/precache-manifest.e3e0edcf8a5b218e83078776906bcfd9.js"
+  "/color-recognition-brain/precache-manifest.3c99cd3cacd03f4027b604ec178cafd0.js"
 );
 
 self.addEventListener('message', (event) => {

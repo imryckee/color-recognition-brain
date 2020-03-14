@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "816322ffdf465dd91ccd9afeb46c9153",
+    "revision": "62f8d4d34132ca94c7c46e4d33e10e49",
     "url": "/color-recognition-brain/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/color-recognition-brain/static/css/2.eb45ad44.chunk.css"
   },
   {
-    "revision": "40f4298d1ee587bad6d5",
+    "revision": "3cc7d993c86dc20f137d",
     "url": "/color-recognition-brain/static/css/main.6142981b.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/color-recognition-brain/static/js/2.f04d0b74.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "40f4298d1ee587bad6d5",
-    "url": "/color-recognition-brain/static/js/main.662668fb.chunk.js"
+    "revision": "3cc7d993c86dc20f137d",
+    "url": "/color-recognition-brain/static/js/main.d7b6c22c.chunk.js"
   },
   {
     "revision": "64c3dcd62a38f4f4c017",
