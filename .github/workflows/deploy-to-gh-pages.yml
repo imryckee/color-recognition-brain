@@ -16,6 +16,10 @@ jobs:
         run: |
           npm install
           npm run build
+        env:
+          REACT_APP_APIKey: ${{ secrets.REACT_APP_APIKey }}
+          REACT_APP_HOST: ${{ secrets.REACT_APP_HOST }}
+          REACT_APP_PORT: ${{ secrets.REACT_APP_PORT }}
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
