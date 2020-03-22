@@ -14,15 +14,19 @@ import Rank from '../components/Rank.js'
 import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm.js'
 import ColorRecognition from '../components/ColorRecognition/ColorRecognition.js'
 
-const app = new Clarifai.App({apiKey: '7a4d95ae63234c00b04756627ab81528'});
-const server = "http://localhost:" + process.env.REACT_APP_serverPORT;
+const apiKey = process.env.REACT_APP_APIKey;
+const host = process.env.REACT_APP_HOST;
+const port = process.env.REACT_APP_PORT;
+
+const app = new Clarifai.App({apiKey: apiKey});
+const server = host + ":" + port;
 
 class App extends React.Component {
     constructor(){
         super();
         this.state = {
             input:"",
-            link:'', 
+            link:'',
             colors:[{hex:'',name:'',percent:''}],
             linkstatus:'',//'true','invalidUrl','invalidFile'
 
@@ -109,14 +113,9 @@ class App extends React.Component {
 
     onSubmitDetect = (event) =>{
         event.target.parentNode.firstChild.value='';
-        console.log("current:"+this.state.input);
         app.models
             .predict("eeed0b6733a644cea07cf4c60f87ebb7", this.state.input)
             .then(response => this.setState({colors:this.abstractColorInfo(response)}))
-            .then(()=>{
-                console.log("current input:"+this.state.input);
-                console.log("current link:"+this.state.link);
-            })
             .then(this.setState(
                 ()=>({
                     input:'',
@@ -124,13 +123,8 @@ class App extends React.Component {
                     linkstatus:'true',
                     })
             ))
-            .then(()=>{
-                console.log("after input:"+this.state.input);
-                console.log("after link:"+this.state.link);
-            })
             .then(()=>{this.updateEntries()})
             .catch(() => {
-                console.log("afterwards:"+this.state.input);
                 this.setState({linkstatus:'invalidUrl'});})
     }
 
