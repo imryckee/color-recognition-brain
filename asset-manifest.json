@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/color-recognition-brain/static/css/main.6142981b.chunk.css",
-    "main.js": "/color-recognition-brain/static/js/main.8d3956ce.chunk.js",
-    "main.js.map": "/color-recognition-brain/static/js/main.8d3956ce.chunk.js.map",
+    "main.js": "/color-recognition-brain/static/js/main.70e6055f.chunk.js",
+    "main.js.map": "/color-recognition-brain/static/js/main.70e6055f.chunk.js.map",
     "runtime-main.js": "/color-recognition-brain/static/js/runtime-main.64c1cd5d.js",
     "runtime-main.js.map": "/color-recognition-brain/static/js/runtime-main.64c1cd5d.js.map",
     "static/css/2.eb45ad44.chunk.css": "/color-recognition-brain/static/css/2.eb45ad44.chunk.css",
     "static/js/2.f04d0b74.chunk.js": "/color-recognition-brain/static/js/2.f04d0b74.chunk.js",
     "static/js/2.f04d0b74.chunk.js.map": "/color-recognition-brain/static/js/2.f04d0b74.chunk.js.map",
     "index.html": "/color-recognition-brain/index.html",
-    "precache-manifest.bd58a7b4d0404d2d2822df975b7d2259.js": "/color-recognition-brain/precache-manifest.bd58a7b4d0404d2d2822df975b7d2259.js",
+    "precache-manifest.641eac472e2ecfd61b7535428f6ed4f5.js": "/color-recognition-brain/precache-manifest.641eac472e2ecfd61b7535428f6ed4f5.js",
     "service-worker.js": "/color-recognition-brain/service-worker.js",
     "static/css/2.eb45ad44.chunk.css.map": "/color-recognition-brain/static/css/2.eb45ad44.chunk.css.map",
     "static/css/main.6142981b.chunk.css.map": "/color-recognition-brain/static/css/main.6142981b.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.eb45ad44.chunk.css",
     "static/js/2.f04d0b74.chunk.js",
     "static/css/main.6142981b.chunk.css",
-    "static/js/main.8d3956ce.chunk.js"
+    "static/js/main.70e6055f.chunk.js"
   ]
 }
