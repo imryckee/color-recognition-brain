@@ -2,7 +2,7 @@
 
 The "Color Recognition" model returns density values for dominant colors present in images.
 <div>    
-    <img src="public/example.png" width="50%" alt="color-recognition"/>
+    <img src="public/example.png" width="70%" alt="color-recognition"/>
 </div>
 
 ## Smart Brain API
