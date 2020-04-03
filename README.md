@@ -6,4 +6,4 @@ The "Color Recognition" model returns density values for dominant colors present
 </div>
 
 ## Smart Brain API
-You can find the repo in https://github.com/rqxing/color-recognition-brain-api.
+You can find the repo in https://github.com/imryckee/color-recognition-brain-api.
